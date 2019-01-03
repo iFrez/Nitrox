@@ -48,7 +48,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
         {
             //Set Server IP in info label
             GameObject lowerDetailTextGameObject = playerSettingsPanel.RequireGameObject("LowerDetail/Text");
-            lowerDetailTextGameObject.GetComponent<Text>().text = $"Server IP Address\n{ServerIp}";
+            lowerDetailTextGameObject.GetComponent<Text>().text = $"IP адрес сервера\n{ServerIp}";
 
             //Initialize elements from preferences
             activePlayerPreference = preferencesManager.GetPreference(ServerIp);
@@ -210,17 +210,17 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             switch (state.CurrentStage)
             {
                 case MultiplayerSessionConnectionStage.EstablishingServerPolicy:
-                    Log.InGame("Requesting session policy information...");
+                    Log.InGame("Запрос информации о политике сеанса...");
                     break;
                 case MultiplayerSessionConnectionStage.AwaitingReservationCredentials:
-                    Log.InGame("Waiting for User Input...");
+                    Log.InGame("Ожидание ввода пользователя...");
 
                     RightSideMainMenu.OpenGroup("Join Server");
                     FocusPlayerNameTextbox();
 
                     break;
                 case MultiplayerSessionConnectionStage.SessionReserved:
-                    Log.InGame("Launching game...");
+                    Log.InGame("Запуск игры...");
 
                     multiplayerSession.ConnectionStateChanged -= SessionConnectionStateChangedHandler;
                     preferencesManager.Save();
@@ -230,7 +230,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
                     break;
                 case MultiplayerSessionConnectionStage.SessionReservationRejected:
-                    Log.InGame("Reservation rejected...");
+                    Log.InGame("Резервирование отклонено...");
 
                     MultiplayerSessionReservationState reservationState = multiplayerSession.Reservation.ReservationState;
 
@@ -246,7 +246,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
                     break;
                 case MultiplayerSessionConnectionStage.Disconnected:
-                    Log.Info("Disconnected from server");
+                    Log.Info("Отключен от сервера");
                     break;
             }
         }
@@ -418,7 +418,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                 baseTabSelectedColorImage.rectTransform.anchoredPosition.y);
 
             Text baseTabText = baseTabTextGameObject.GetComponent<Text>();
-            baseTabText.text = "Player Color";
+            baseTabText.text = "Цвет игрока";
 
             //This resizes the actual Image that outlines all of the UI elements.
             GameObject baseTabBackgroundGameObject = baseTabTransform.RequireGameObject("Background");
@@ -473,7 +473,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
             GameObject inputFieldPlaceholder = inputFieldRectTransform.RequireGameObject("Placeholder");
             Text inputFieldPlaceholderText = inputFieldPlaceholder.GetComponent<Text>();
-            inputFieldPlaceholderText.text = "Enter Player Name";
+            inputFieldPlaceholderText.text = "Введите имя игрока";
         }
 
         //This is the "service" that manages the click and drag events on the color picture RectTransform.
@@ -514,7 +514,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             RectTransform cancelButtonTransform = (RectTransform)cancelButtonGameObject.transform;
             GameObject cancelButtonTextGameObject = cancelButtonTransform.RequireGameObject("Text");
             Text cancelButtonText = cancelButtonTextGameObject.GetComponent<Text>();
-            cancelButtonText.text = "Cancel";
+            cancelButtonText.text = "Отмена";
 
             cancelButtonTransform.sizeDelta = new Vector2(cancelButtonTransform.rect.width * 0.85f, cancelButtonTransform.rect.height);
             cancelButtonTransform.anchoredPosition = new Vector2(
@@ -532,7 +532,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
             GameObject joinButtonTextGameObject = joinButtonTransform.RequireGameObject("Text");
             Text joinButtonText = joinButtonTextGameObject.GetComponent<Text>();
-            joinButtonText.text = "Join";
+            joinButtonText.text = "Подключиться";
 
             //Flip the text so it is no longer upside down after flipping the button.
             RectTransform joinButtonTextRectTransform = (RectTransform)joinButtonTextGameObject.transform;

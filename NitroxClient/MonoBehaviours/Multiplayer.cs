@@ -33,7 +33,7 @@ namespace NitroxClient.MonoBehaviours
 
         public void Awake()
         {
-            Log.InGame("Multiplayer Client Loaded...");
+            Log.InGame("Клиент мультиплеера загружен...");
             multiplayerSession = NitroxServiceLocator.LocateService<IMultiplayerSession>();
             packetReceiver = NitroxServiceLocator.LocateService<DeferringPacketReceiver>();
             Main = this;

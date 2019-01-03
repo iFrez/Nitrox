@@ -43,11 +43,11 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
             if (multiplayerSession.CurrentState.CurrentStage == MultiplayerSessionConnectionStage.SessionJoined)
             {
-                Log.InGame("Already connected to a server");
+                Log.InGame("Уже подключен к серверу");
             }
             else if (n?.data?.Count > 0)
             {
-                Log.InGame("Console Multiplayer Session Join Client Loaded...");
+                Log.InGame("Консоль мультиплеерской сессии подключения игроков загружена...");
                 StartMultiplayerClient();
                 int serverPort = 11000;
                 string ipAddress = n.data.Count >= 2 ? (string)n.data[1] : DEFAULT_IP_ADDRESS;
@@ -64,7 +64,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             }
             else
             {
-                Log.InGame("Command syntax: mplayer USERNAME [SERVERIP]");
+                Log.InGame("Синтаксис команды: mplayer USERNAME [SERVERIP]");
             }
         }
 
@@ -115,14 +115,14 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                     Multiplayer.Main.StartSession();
                     break;
                 case MultiplayerSessionConnectionStage.SessionReservationRejected:
-                    Log.InGame($"Cannot join server: {multiplayerSession.Reservation.ReservationState.ToString()}");
+                    Log.InGame($"Невозможно подключиться к серверу: {multiplayerSession.Reservation.ReservationState.ToString()}");
                     multiplayerSession.Disconnect();
                     break;
                 case MultiplayerSessionConnectionStage.Disconnected:
                     multiplayerSession.ConnectionStateChanged -= SessionConnectionStateChangedHandler;
                     break;
                 default:
-                    Log.InGame($"Current Stage: {multiplayerSession.CurrentState.CurrentStage}");
+                    Log.InGame($"Текущая стадия: {multiplayerSession.CurrentState.CurrentStage}");
                     break;
             }
         }

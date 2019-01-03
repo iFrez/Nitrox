@@ -1,4 +1,5 @@
-﻿using NitroxClient.Unity.Helper;
+﻿using System.Diagnostics;
+using NitroxClient.Unity.Helper;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,8 +22,24 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
         {
             if (scene.name == "XMenu")
             {
-                MultiplayerMenuMods();
+                DiscordMenuMods();
+                MultiplayerMenuMods();                
             }
+        }
+
+
+        private void DiscordMenuMods()
+        {
+            GameObject startButton = GameObjectHelper.RequireGameObject("Menu canvas/Panel/MainMenu/PrimaryOptions/MenuButtons/ButtonPlay");
+            GameObject showLoadedMultiplayer = Instantiate(startButton, startButton.transform.parent);
+            showLoadedMultiplayer.name = "ButtonMultiplayer";
+            Text buttonText = showLoadedMultiplayer.RequireGameObject("Circle/Bar/Text").GetComponent<Text>();
+            buttonText.text = "Наш дискорд";
+            Destroy(buttonText.GetComponent<TranslationLiveUpdate>());
+            showLoadedMultiplayer.transform.SetSiblingIndex(3);
+            Button showLoadedMultiplayerButton = showLoadedMultiplayer.GetComponent<Button>();
+            showLoadedMultiplayerButton.onClick.RemoveAllListeners();
+            showLoadedMultiplayerButton.onClick.AddListener(ShowDiscord);
         }
 
         private void MultiplayerMenuMods()
@@ -31,7 +48,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             GameObject showLoadedMultiplayer = Instantiate(startButton, startButton.transform.parent);
             showLoadedMultiplayer.name = "ButtonMultiplayer";
             Text buttonText = showLoadedMultiplayer.RequireGameObject("Circle/Bar/Text").GetComponent<Text>();
-            buttonText.text = "Multiplayer";
+            buttonText.text = "MOON HUNTERS";
             Destroy(buttonText.GetComponent<TranslationLiveUpdate>());
             showLoadedMultiplayer.transform.SetSiblingIndex(3);
             Button showLoadedMultiplayerButton = showLoadedMultiplayer.GetComponent<Button>();
@@ -42,7 +59,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             GameObject savedGamesRef = FindObject(rightSide.gameObject, "SavedGames");
             GameObject LoadedMultiplayer = Instantiate(savedGamesRef, rightSide.transform);
             LoadedMultiplayer.name = "Multiplayer";
-            LoadedMultiplayer.RequireTransform("Header").GetComponent<Text>().text = "Multiplayer";
+            LoadedMultiplayer.RequireTransform("Header").GetComponent<Text>().text = "Мульти-пульти плеер by !Frez & Karchetta";
             Destroy(LoadedMultiplayer.RequireGameObject("Scroll View/Viewport/SavedGameAreaContent/NewGame"));
             Destroy(LoadedMultiplayer.GetComponent<MainMenuLoadPanel>());
 
@@ -57,6 +74,17 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
         {
             MainMenuRightSide rightSide = MainMenuRightSide.main;
             rightSide.OpenGroup("Multiplayer");
+        }
+
+        private void ShowDiscord()
+        {
+            MainMenuRightSide rightSide = MainMenuRightSide.main;
+            rightSide.HideRightSide();
+            try
+            {
+                Process.Start("https://discordapp.com/invite/hhNBmR6");
+            }
+            catch { }
         }
 
         private GameObject FindObject(GameObject parent, string name)

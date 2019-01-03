@@ -37,7 +37,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                 AddServer("local", "127.0.0.1");
             }
 
-            CreateButton("Add a server", ShowAddServerWindow);
+            CreateButton("Добавить сервер", ShowAddServerWindow);
             using (StreamReader sr = new StreamReader(SERVER_LIST_PATH))
             {
                 string line;
@@ -149,7 +149,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                 return;
             }
 
-            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Add server");
+            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Добавить сервер");
         }
 
         private void OnAddServerButtonClicked()
@@ -207,7 +207,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                 {
                     using (new GUILayout.HorizontalScope())
                     {
-                        GUILayout.Label("Name:");
+                        GUILayout.Label("Название:");
                         GUI.SetNextControlName("serverNameField");
                         // 120 so users can't go too crazy.
                         serverNameInput = GUILayout.TextField(serverNameInput, 120);
@@ -215,18 +215,18 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
 
                     using (new GUILayout.HorizontalScope())
                     {
-                        GUILayout.Label("Host:");
+                        GUILayout.Label("Хост:");
                         GUI.SetNextControlName("serverHostField");
                         // 120 so users can't go too crazy.
                         serverHostInput = GUILayout.TextField(serverHostInput, 120);
                     }
 
-                    if (GUILayout.Button("Add server"))
+                    if (GUILayout.Button("Добавить сервер"))
                     {
                         OnAddServerButtonClicked();
                     }
 
-                    if (GUILayout.Button("Cancel"))
+                    if (GUILayout.Button("Отмена"))
                     {
                         OnCancelButtonClicked();
                     }
