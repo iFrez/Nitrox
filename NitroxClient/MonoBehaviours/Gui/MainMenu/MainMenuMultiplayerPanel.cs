@@ -40,6 +40,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             if (!File.Exists(SERVER_LIST_PATH))
             {
                 AddServer("local", "127.0.0.1");
+                AddServer("MOON HUNTERS", "5.39.120.65");
             }
 
             CreateButton("Добавить сервер", ShowAddServerWindow);
@@ -138,7 +139,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             }
             catch (SocketException e)
             {
-                Log.Error($"Unable to resolve the address: {serverIp}");
+                Log.Error($"Невозможно подключиться по адресу: {serverIp}");
                 Log.Error(e.ToString());
             }
         }
