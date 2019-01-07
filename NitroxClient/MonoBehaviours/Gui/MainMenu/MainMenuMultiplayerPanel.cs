@@ -8,6 +8,7 @@ using NitroxClient.Unity.Helper;
 using NitroxModel.Core;
 using NitroxModel.Logger;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace NitroxClient.MonoBehaviours.Gui.MainMenu
@@ -15,18 +16,18 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
     public class MainMenuMultiplayerPanel : MonoBehaviour
     {
         public const string SERVER_LIST_PATH = @".\servers";
-        public GameObject SavedGamesRef;
+        private Rect addServerWindowRect = new Rect(Screen.width / 2 - 250, 200, 500, 200);
+        private GameObject joinServerGameObject;
         public GameObject LoadedMultiplayerRef;
+
+        private GameObject multiplayerButton;
+        private Transform savedGameAreaContent;
+        public GameObject SavedGamesRef;
+        private string serverHostInput;
+        private string serverNameInput;
 
         private bool shouldFocus;
         private bool showingAddServer;
-        private string serverNameInput;
-        private string serverHostInput;
-        private Rect addServerWindowRect = new Rect(Screen.width / 2 - 250, 200, 500, 200);
-        private GameObject joinServerGameObject;
-
-        GameObject multiplayerButton;
-        Transform savedGameAreaContent;
 
         public void Awake()
         {
@@ -44,20 +45,10 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             }
 
             CreateButton("Добавить сервер", ShowAddServerWindow);
-            using (StreamReader sr = new StreamReader(SERVER_LIST_PATH))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] lineData = line.Split('|');
-                    string serverName = lineData[0];
-                    string serverIp = lineData[1];
-                    CreateServerButton($"<b>{serverName}</b>\n{serverIp}", serverIp);
-                }
-            }
+            LoadSavedServers();
         }
 
-        public void CreateButton(string text, UnityEngine.Events.UnityAction clickEvent)
+        public void CreateButton(string text, UnityAction clickEvent)
         {
             GameObject multiplayerButtonInst = Instantiate(multiplayerButton);
             Transform txt = multiplayerButtonInst.RequireTransform("NewGameButton/Text");
@@ -129,6 +120,45 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             }
         }
 
+        public void ShowAddServerWindow()
+        {
+            serverNameInput = "local";
+            serverHostInput = "127.0.0.1";
+            showingAddServer = true;
+            shouldFocus = true;
+        }
+
+        public void HideAddServerWindow()
+        {
+            showingAddServer = false;
+            shouldFocus = true;
+        }
+
+        public void OnGUI()
+        {
+            if (!showingAddServer)
+            {
+                return;
+            }
+
+            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Add server");
+        }
+
+        private void LoadSavedServers()
+        {
+            using (StreamReader sr = new StreamReader(SERVER_LIST_PATH))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] lineData = line.Split('|');
+                    string serverName = lineData[0];
+                    string serverIp = lineData[1];
+                    CreateServerButton($"Connect to <b>{serverName}</b>\n{serverIp}", serverIp);
+                }
+            }
+        }
+
         private void ResolveHostName(JoinServer joinServerComponent, string serverIp)
         {
             try
@@ -160,34 +190,10 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             }
         }
 
-        public void ShowAddServerWindow()
-        {
-            serverNameInput = "local";
-            serverHostInput = "127.0.0.1";
-            showingAddServer = true;
-            shouldFocus = true;
-        }
-
-        public void HideAddServerWindow()
-        {
-            showingAddServer = false;
-            shouldFocus = true;
-        }
-
-        public void OnGUI()
-        {
-            if (!showingAddServer)
-            {
-                return;
-            }
-
-            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Добавить сервер");
-        }
-
         private void OnAddServerButtonClicked()
         {
             AddServer(serverNameInput, serverHostInput);
-            CreateServerButton($"<b>{serverNameInput}</b>\n{serverHostInput}", serverHostInput);
+            CreateServerButton($"Подключиться к <b>{serverNameInput}</b>\n{serverHostInput}", serverHostInput);
             HideAddServerWindow();
         }
 
