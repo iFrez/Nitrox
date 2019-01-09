@@ -159,7 +159,7 @@ namespace NitroxClient.MonoBehaviours
 
         public static IEnumerator LoadAsync()
         {
-            WaitScreen.Item item = WaitScreen.Add("Loading Multiplayer", null);
+            WaitScreen.Item item = WaitScreen.Add("Загрузка мультиплеера", null);
             WaitScreen.ShowImmediately();
             Main.StartSession();
             yield return new WaitUntil(() => Main.InitialSyncCompleted);

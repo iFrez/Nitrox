@@ -141,7 +141,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                 return;
             }
 
-            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Add server");
+            addServerWindowRect = GUILayout.Window(GUIUtility.GetControlID(FocusType.Keyboard), addServerWindowRect, DoAddServerWindow, "Добавить сервер");
         }
 
         private void LoadSavedServers()
@@ -154,7 +154,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
                     string[] lineData = line.Split('|');
                     string serverName = lineData[0];
                     string serverIp = lineData[1];
-                    CreateServerButton($"Connect to <b>{serverName}</b>\n{serverIp}", serverIp);
+                    CreateServerButton($"Подключиться к <b>{serverName}</b>\n{serverIp}", serverIp);
                 }
             }
         }
