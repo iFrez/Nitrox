@@ -18,7 +18,7 @@ namespace NitroxClient.GameLogic.PlayerModelBuilder
             signalBase.transform.SetParent(player.PlayerModel.transform, false);
 
             PingInstance ping = signalBase.GetComponent<PingInstance>();
-            ping.SetLabel("Player " + player.PlayerName);
+            ping.SetLabel("Игрок " + player.PlayerName);
             ping.pingType = PingType.Signal;
 
             UpdateLocalPlayerPda(player, ping);

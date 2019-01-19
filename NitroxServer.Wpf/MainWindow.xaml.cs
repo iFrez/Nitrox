@@ -26,6 +26,7 @@ namespace NitroxServer.Wpf
             {
                 LogTextBox.Text += data + Environment.NewLine;
                 LogTextBox.SelectionStart = LogTextBox.Text.Length;
+                LogTextBox.CaretIndex = LogTextBox.Text.Length;
                 LogTextBox.ScrollToEnd();
             }
             else
@@ -38,7 +39,7 @@ namespace NitroxServer.Wpf
         {
             if (Process.GetProcessesByName(nameof(NitroxServer)).Any())
             {
-                MessageBox.Show("Nitrox server has already been started. Please close it before starting a new server.");
+                MessageBox.Show("Nitrox сервер уже запущен. Пожалуйста, закройте его перед запуском нового сервера.");
                 Environment.Exit(1);
             }
 

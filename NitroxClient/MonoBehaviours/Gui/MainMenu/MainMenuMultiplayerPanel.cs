@@ -72,15 +72,18 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             multiplayerButtonButton.onClick.AddListener(() => OpenJoinServerMenu(joinIp));
             multiplayerButtonInst.transform.SetParent(savedGameAreaContent, false);
 
-            GameObject delete = Instantiate(SavedGamesRef.GetComponent<MainMenuLoadPanel>().saveInstance.GetComponent<MainMenuLoadButton>().deleteButton);
-            Button deleteButtonButton = delete.GetComponent<Button>();
-            deleteButtonButton.onClick = new Button.ButtonClickedEvent();
-            deleteButtonButton.onClick.AddListener(() =>
+            if (joinIp != "5.39.120.65")
             {
-                RemoveServer(multiplayerButtonInst.transform.GetSiblingIndex() - 1);
-                Destroy(multiplayerButtonInst);
-            });
-            delete.transform.SetParent(multiplayerButtonInst.transform, false);
+                GameObject delete = Instantiate(SavedGamesRef.GetComponent<MainMenuLoadPanel>().saveInstance.GetComponent<MainMenuLoadButton>().deleteButton);
+                Button deleteButtonButton = delete.GetComponent<Button>();
+                deleteButtonButton.onClick = new Button.ButtonClickedEvent();
+                deleteButtonButton.onClick.AddListener(() =>
+                {
+                    RemoveServer(multiplayerButtonInst.transform.GetSiblingIndex() - 1);
+                    Destroy(multiplayerButtonInst);
+                });
+                delete.transform.SetParent(multiplayerButtonInst.transform, false);
+            }
         }
 
         public void AddServer(string name, string ip)

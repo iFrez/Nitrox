@@ -54,7 +54,7 @@ namespace NitroxClient.Communication.MultiplayerSession.ConnectionState
         {
             if (!sessionConnectionContext.Client.IsConnected)
             {
-                throw new InvalidOperationException("The client is not connected.");
+                throw new InvalidOperationException("Клиент не подключен.");
             }
         }
 
@@ -66,7 +66,7 @@ namespace NitroxClient.Communication.MultiplayerSession.ConnectionState
             }
             catch (ArgumentNullException ex)
             {
-                throw new InvalidOperationException("The context does not contain player settings.", ex);
+                throw new InvalidOperationException("Контекст не содержит настроек игрока.", ex);
             }
         }
 
@@ -78,7 +78,7 @@ namespace NitroxClient.Communication.MultiplayerSession.ConnectionState
             }
             catch (ArgumentNullException ex)
             {
-                throw new InvalidOperationException("The context does not contain an authentication context.", ex);
+                throw new InvalidOperationException("Контекст не содержит контекст аутентификации.", ex);
             }
         }
     }

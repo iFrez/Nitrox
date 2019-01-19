@@ -48,7 +48,7 @@ namespace NitroxClient.MonoBehaviours.Gui.MainMenu
             GameObject showLoadedMultiplayer = Instantiate(startButton, startButton.transform.parent);
             showLoadedMultiplayer.name = "ButtonMultiplayer";
             Text buttonText = showLoadedMultiplayer.RequireGameObject("Circle/Bar/Text").GetComponent<Text>();
-            buttonText.text = "MOON HUNTERS";
+            buttonText.text = "Игровые сервера";
             Destroy(buttonText.GetComponent<TranslationLiveUpdate>());
             showLoadedMultiplayer.transform.SetSiblingIndex(3);
             Button showLoadedMultiplayerButton = showLoadedMultiplayer.GetComponent<Button>();
